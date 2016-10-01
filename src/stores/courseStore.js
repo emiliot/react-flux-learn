@@ -38,6 +38,10 @@ Dispatcher.register(function(action){
       _courses = action.initialData.courses;
       CourseStore.emitChange();
       break;
+    case CourseActionTypes.CREATE_COURSE:
+      _courses.push(action.course);
+      CourseStore.emitChange();
+      break;
     default:
       //no op
   }

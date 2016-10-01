@@ -3,5 +3,6 @@
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
-  COURSE_INITIALIZE: null
+  COURSE_INITIALIZE: null,
+  CREATE_COURSE: null
 });

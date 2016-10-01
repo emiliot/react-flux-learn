@@ -2,8 +2,15 @@
 
 var React = require('react');
 var CourseForm = require('./courseForm');
+var Router = require('react-router');
+var CourseActions = require('../../actions/courseActions');
+var toastr = require('toastr');
 
 var ManageCoursePage = React.createClass({
+  mixins: [
+    Router.Navigation
+  ],
+
   getInitialState: function(){
     return {
       course: { id: '', title: '', author: '', length: '', category: '', url: '' },
@@ -22,7 +29,21 @@ var ManageCoursePage = React.createClass({
   },
 
   saveCourse: function(event){
+    event.preventDefault();
 
+    if(!this.courseFormIsValid()){
+      return;
+    }
+
+    if(this.state.course.id){
+      CourseActions.updateCourse(this.state.course);
+    }else{
+      CourseActions.createCourse(this.state.course);
+    }
+
+    this.setState({dirty: false});
+    toastr.success('Course Saved');
+    this.transitionTo('courses');
   },
 
   setCourseState: function(event){
