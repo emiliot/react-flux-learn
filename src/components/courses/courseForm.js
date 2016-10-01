@@ -42,9 +42,9 @@ var CourseForm = React.createClass({
         <Input
         name="url"
         label="URL"
-        value={this.props.course.url}
+        value={this.props.course.watchHref}
         onChange={this.props.onChange}
-        error={this.props.errors.url}/>
+        error={this.props.errors.watchHref}/>
 
         <input
         type="submit"

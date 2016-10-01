@@ -5,6 +5,7 @@ var CourseForm = require('./courseForm');
 var Router = require('react-router');
 var CourseActions = require('../../actions/courseActions');
 var toastr = require('toastr');
+var CourseStore = require('../../stores/courseStore');
 
 var ManageCoursePage = React.createClass({
   mixins: [
@@ -17,6 +18,15 @@ var ManageCoursePage = React.createClass({
       errors: {},
       dirty: false
     };
+  },
+
+  componentWillMount: function(){
+    var courseId = this.props.params.id;
+    if(courseId){
+      this.setState({
+        course: CourseStore.getCourseById(courseId)
+      });
+    }
   },
 
   courseFormIsValid: function(){
