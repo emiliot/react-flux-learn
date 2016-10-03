@@ -6,6 +6,7 @@ var Router = require('react-router');
 var CourseActions = require('../../actions/courseActions');
 var toastr = require('toastr');
 var CourseStore = require('../../stores/courseStore');
+var AuthorStore = require('../../stores/authorStore');
 
 var ManageCoursePage = React.createClass({
   mixins: [
@@ -16,17 +17,18 @@ var ManageCoursePage = React.createClass({
     return {
       course: { id: '', title: '', author: '', length: '', category: '', url: '' },
       errors: {},
-      dirty: false
+      dirty: false,
+      authors: []
     };
   },
 
   componentWillMount: function(){
     var courseId = this.props.params.id;
+    var nextState = { authors: AuthorStore.getAllAuthors() };
     if(courseId){
-      this.setState({
-        course: CourseStore.getCourseById(courseId)
-      });
+      nextState.course = CourseStore.getCourseById(courseId);
     }
+    this.setState(nextState);
   },
 
   courseFormIsValid: function(){
@@ -72,7 +74,8 @@ var ManageCoursePage = React.createClass({
         course={this.state.course}
         onChange={this.setCourseState}
         onSave={this.saveCourse}
-        errors={this.state.errors} />
+        errors={this.state.errors}
+        authors={this.state.authors} />
     );
   }
 });

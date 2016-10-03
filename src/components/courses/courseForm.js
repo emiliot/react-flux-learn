@@ -2,13 +2,15 @@
 
 var React = require('react');
 var Input = require('../common/textInput');
+var Select = require('../common/selectInput');
 
 var CourseForm = React.createClass({
   propTypes: {
     course: React.PropTypes.object.isRequired,
     onSave: React.PropTypes.func.isRequired,
     onChange: React.PropTypes.func.isRequired,
-    errors: React.PropTypes.object
+    errors: React.PropTypes.object,
+    authors: React.PropTypes.array.isRequired
   },
 
   render: function(){
@@ -21,12 +23,12 @@ var CourseForm = React.createClass({
         value={this.props.course.title}
         onChange={this.props.onChange}
         error={this.props.errors.title}/>
-        <Input
+        <Select
         name="author"
-        label="Author"
+        label="Select an Author"
         value={this.props.course.author}
         onChange={this.props.onChange}
-        error={this.props.errors.author}/>
+        options={this.props.authors}/>
         <Input
         name="length"
         label="Length"
@@ -40,7 +42,7 @@ var CourseForm = React.createClass({
         onChange={this.props.onChange}
         error={this.props.errors.category}/>
         <Input
-        name="url"
+        name="watchHref"
         label="URL"
         value={this.props.course.watchHref}
         onChange={this.props.onChange}
